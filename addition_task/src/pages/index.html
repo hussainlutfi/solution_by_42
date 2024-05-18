@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/c4d9e05ed1.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+            <h1>Enter Request CSV</h1>
+            <p>Welcome to our web app. Here, you can upload your CSV file, and we'll provide you with some neat statistics about it. This tool is brought to you by 42 Information Technology Company Limited.</p>
+            <form id="csvForm">
+                <input type="file" id="csvFile" name="csvFile" accept=".csv" required>
+                <button type="submit">Analyze</button>
+            </form>
+            
+            <div id="loading" hidden>
+                <i class="fa-solid fa-circle-nodes fa-rotate-180 fa-2xl" style="color: #244d94;"></i>
+            </div>
+    </div>
+    
+    
+    <script>
+        document.getElementById('csvForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            const loadingDiv = document.getElementById('loading');
+    
+            if (file) {
+                //  Show loading indicator
+                loadingDiv.hidden = false;
+    
+                const formData = new FormData();
+                formData.append('csvFile', file);
+    
+                fetch('/upload-csv', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    window.location.href = '/statistics';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Hide loading indicator if there's an error
+                    loadingDiv.hidden = true;
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>

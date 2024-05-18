@@ -1,0 +1,89 @@
+body {
+    background-color: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#Count {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    /* padding: 10px; */
+    margin: 5px;
+}
+
+#num {
+    margin-right: 5px;
+    font-size: x-large;
+}
+
+#Percent { 
+    font-size: xx-large;
+    font-weight: bold;
+    /* padding: 10px; */
+    margin: 5px;
+}
+
+#identifier {
+    /* padding: 10px; */
+    margin: 5px;
+    font-size: x-large;
+}
+
+#sibling-cards {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    width: 190px;
+    height: 254px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+                  -20px -20px 60px #ffffff;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+   }
+
+.time-card {
+    width: 400px;
+    height: 254px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+                  -20px -20px 60px #ffffff;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card-error {
+    width: 190px;
+    height: 254px;
+    border-radius: 50px;
+    background: #dd6d6d;
+    box-shadow: 20px 20px 60px #e2c0c0,
+                  -20px -20px 60px #ffffff;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+}

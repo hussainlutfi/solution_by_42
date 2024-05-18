@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="statistics.css">
+    <title>Document</title>
+</head>
+<body>    
+    <div id="main-card"></div>
+    <div id="sibling-cards"></div>
+    <div id="time-card"></div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+            const mainCard = document.getElementById("main-card");
+            const siblingCards = document.getElementById("sibling-cards");
+            const timeCard = document.getElementById("time-card");
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    const TableCounts = data.TableCounts;
+                    const Errors = data.ErrorLogs;
+                    const TimeExecuted = data.TimeExecutions.TimeExecuted;
+                    const RequestCount = TableCounts[0].RowCount;
+                    mainCard.innerHTML = `
+                        <div class="card">
+                            <p id="Percent">100%</p>
+                            <div id="Count">
+                                <p id="num">${RequestCount}</p>
+                                <p>Request</p>
+                            </div>
+                            <p id="identifier">Request</p>
+                        </div>
+                    `;
+
+                    siblingCards.innerHTML = TableCounts
+                    .slice(1)
+                    .map(
+                        (count) => `
+                    <div class="card">
+                        <p id="Percent">${((count.RowCount / RequestCount) * 100).toFixed(
+                            2
+                        )}%</p>
+                        <div id="Count">
+                            <p id="num">${count.RowCount}</p>
+                            <p>Request</p>
+                        </div>
+                        <p id="identifier">${count.TableName}</p>
+                    </div>
+                    `
+                    )
+                    .join("") + 
+                    `
+                    <div class="card-error">
+                        <p id="Percent">${Errors.length}</p>
+                        <div id="Count">
+                            <p id="num">Errors</p>
+                        </div>
+                        <p id="identifier">ErrorLog</p>
+                    `;
+
+                    timeCard.innerHTML = `
+                        <div class="time-card">
+                            <p id="Percent">${TimeExecuted.toFixed(
+                            2
+                        )}</p>
+                            <p id="num">Seconds</p>
+                            <p id="identifier">TimeExecuted</p>
+                        </div>
+                    `;
+                })
+                .catch(error => console.error('Error loading the data:', error));
+        });
+</script>
+
+</html>
